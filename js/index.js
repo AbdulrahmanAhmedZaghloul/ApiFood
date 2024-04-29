@@ -1,5 +1,5 @@
 "use strict"
-let allget = []
+let allget = [];
 let dateROW = document.getElementById("dateROW");
 let categories = document.getElementById("categories");
 let search = document.getElementById("search");
@@ -7,63 +7,54 @@ let area = document.getElementById("area");
 let ingredients = document.getElementById("ingredients");
 let contact = document.getElementById("contact");
 let sideWidth = $(".link").innerWidth();
+let submitBtn;
 let nameTouched = false;
 let emailTouched = false;
 let phoneTouched = false;
 let ageTouched = false;
 let passwordTouched = false;
 let repasswordTouched = false;
- $(function () {
+$( ()=> {
 
-$("#loading").slideUp(500, function () {
+  $("#loading").slideUp(500, function () {
     $("#loading").remove();
-});
-
   });
-$("aside").css("left", -sideWidth);
- $(".openclick").click(function () {
-    sideWidth = $(".link").innerWidth();
-    if ($("aside").css("left") == "0px") {
-        $("aside").animate({ left: -sideWidth }, 500);
-        $(".links li").animate({ top: 300 }, 200);
-        for (let i = 0; i < 5; i++) {
-            $(".link div ul li").eq(i).animate({
-                top: 300
-            }, (i + 5) * 100)
-        }
-      
-        $(".open-close-icon").addClass("fa-align-justify");
-        $(".open-close-icon").removeClass("fa-x");
-    } else {
-        $(".open-close-icon").removeClass("fa-align-justify");
-        $(".open-close-icon").addClass("fa-x");
-        $("aside").animate({ left: "0px" }, 500);
-      
-        for (let i = 0; i < 5; i++) {
-            $(".link div ul li").eq(i).animate({
-                top: 0
-            }, (i + 5) * 50)
-        }
-   
-    }
+
 });
+$("aside").css("left", -sideWidth);
+$(".openclick").click( ()=> {
+  sideWidth = $(".link").innerWidth();
 
-// $(document).ready(function () {
-//     $("#loeding").slideDown(300, () => {
-//         $("body").css("overflow", "auto");
-//         $("#loeding").remove(); 
-//     });
-// });
-
-$(document).ready(() => {
+  if ($("aside").css("left") == "0px") {
+    $("aside").animate({ left: -sideWidth }, 500);
+    $(".links li").animate({ top: 300 }, 200);
+    for (let i = 0; i < 5; i++) {
+      $(".link div ul li").eq(i).animate({
+        top: 300,
+      }, (i + 5) * 100);
+    };
+    $(".open-close-icon").addClass("fa-align-justify");
+    $(".open-close-icon").removeClass("fa-x");
+  }
+  else {
+    $(".open-close-icon").removeClass("fa-align-justify");
+    $(".open-close-icon").addClass("fa-x");
+    $("aside").animate({ left: "0px" }, 500);
+    for (let i = 0; i < 5; i++) {
+      $(".link div ul li").eq(i).animate({
+        top: 0,
+      }, (i + 5) * 50);
+    };
+  };
+});
+$(() => {
   searchName("").then(() => {
     $("#loeding").fadeOut(300, () => {
       $("body").css("overflow", "auto");
-      $("#loeding").remove(); 
+      $("#loeding").remove();
+    });
   });
-  })
-})
-
+});
 async function mailgetApi() {
   $("#loeding").fadeIn(300);
   let date = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=`);
@@ -72,14 +63,11 @@ async function mailgetApi() {
   $("#loeding").fadeOut(300);
 
 };
-
 function displayapi(dxer) {
-    let cartoona = ``;
-
-
-    for (let i = 0; i < dxer.length; i++) {
-        cartoona += `
-        <div onclick="getMealDetails(${dxer[i].idMeal})" class="  mx-auto p-5 lg:w-1/4 md:w-1/3 sm:w-1/2 w-full">
+  let cartoona = ``;
+  for (let i = 0; i < dxer.length; i++) {
+    cartoona += `
+        <div onclick="getMealDetails(${dxer[i].idMeal})" class="   p-5 lg:w-1/4 md:w-1/3 sm:w-1/2 w-full">
                 <div class="parent group mt-4 relative overflow-hidden">
                     <img class="rounded-xl" src="${dxer[i].strMealThumb}" alt="zxczxczx">
                     <div
@@ -89,49 +77,38 @@ function displayapi(dxer) {
                 </div>
             </div>
         `
-    }
-    dateROW.innerHTML = cartoona
+  };
+  dateROW.innerHTML = cartoona;
 };
-
-
 async function getMealDetails(mealID) {
-    $("#loeding").fadeIn(300);
-    let date = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealID} `);
-    let allget = await date.json();
-    displayMealDetails(allget.meals[0]);
-    $("#loeding").fadeOut(300);
+  $("#loeding").fadeIn(300);
+  let date = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealID} `);
+  let allget = await date.json();
+  displayMealDetails(allget.meals[0]);
+  $("#loeding").fadeOut(300);
 };
-
-
 function displayMealDetails(meal) {
-    let tags = meal.strTags?.split(",")
-    if (!tags) tags = []
-
-    let tagsStr = '';
-    for (let i = 0; i < tags.length; i++) {
-        tagsStr += `
+  let tags = meal.strTags?.split(",");
+  if (!tags) tags = [];
+  let tagsStr = '';
+  for (let i = 0; i < tags.length; i++) {
+    tagsStr += `
         <li class=" text-black  bg-[#f5c2c7] rounded-sm py-2 px-3 m-2">${tags[i]}</li>`
-    }
-    let tablespoons = ``;
-
-    for (let i = 1; i <= 30; i++) {
-
-        if (meal[`strIngredient${i}`]) {
-            tablespoons +=
-                `<li class="bg-[#cff4fc] rounded-sm py-1 text-black m-2 p-1">
-        
+  };
+  let tablespoons = ``;
+  for (let i = 1; i <= 30; i++) {
+    if (meal[`strIngredient${i}`]) {
+      tablespoons +=
+        `<li class="bg-[#cff4fc] rounded-sm py-1 text-black m-2 p-1">
              ${meal[`strMeasure${i}`]} ${meal[`strIngredient${i}`]}
-        
             </li>
             `
-
-        }
-    }
-
-    let cartoona = `
+    };
+  };
+  let cartoona = `
                     <div class=" flex flex-wrap ">
                              <div class="p-5 lg:w-1/2 md:w-1/2 sm:w-1/2 w-full  mt-24  flex flex-col flex-wrap items-start justify-start ">
-                                 <img class="w-full mx-auto flex flex-col flex-wrap items-start justify-start rounded-3" src="${meal.strMealThumb}" alt="">
+                                 <img class="w-full mx-auto flex flex-col flex-wrap items-start justify-start rounded-3" src="${meal.strMealThumb}" alt="strMealThumb">
                                  <h2 class="mx-auto text-slate-50 font-bold text-xl text-center py-4">${meal.strMeal}</h2>
                              </div>
 
@@ -161,31 +138,22 @@ function displayMealDetails(meal) {
                            </div>
                     </div>
             `
-
-    dateROW.innerHTML = cartoona;
-    dateinput.innerHTML = ``;
-
-}
-///////////////////////////////////////////
-
-async function getApi() {
-    $("#loeding").fadeIn(300);
-
-    let date = await fetch(`https://www.themealdb.com/api/json/v1/1/categories.php`);
-    allget = await date.json();
-    displaycategories(allget.categories);
-    $("#loeding").fadeOut(300);
-
+  dateROW.innerHTML = cartoona;
+  dateinput.innerHTML = ``;
 };
-
+///////////////////////////////////////////
+async function getApi() {
+  $("#loeding").fadeIn(300);
+  let date = await fetch(`https://www.themealdb.com/api/json/v1/1/categories.php`);
+  allget = await date.json();
+  displaycategories(allget.categories);
+  $("#loeding").fadeOut(300);
+};
 function displaycategories(der) {
-    let cartoona = ``;
-
-
-    for (let i = 0; i < der.length; i++) {
-        cartoona += `
-        
-        <div  class="allmain mx-auto p-5 lg:w-1/4 md:w-1/3 sm:w-1/2 w-full">
+  let cartoona = ``;
+  for (let i = 0; i < der.length; i++) {
+    cartoona += `
+        <div  class="allmain  p-5 lg:w-1/4 md:w-1/3 sm:w-1/2 w-full">
         <div onclick="getCategoryMeals('${der[i].strCategory}')" class="parent group mt-4 relative overflow-hidden">
             <img class="rounded-xl" src="${der[i].strCategoryThumb}" alt="images">
             <div
@@ -194,63 +162,51 @@ function displaycategories(der) {
                 <p class="text-1xl font-bold text-center mx-auto flex justify-center">${der[i].strCategoryDescription.split(" ").slice(0, 20).join(" ")}</p>
             </div>
         </div>
-    </div>
-        `
-    }
-    dateROW.innerHTML = cartoona
+    </div>      `
+  }
+  dateROW.innerHTML = cartoona;
 };
-
 categories.addEventListener("click", () => {
-    getApi();
-    dateinput.innerHTML = ``;
+  getApi();
+  dateinput.innerHTML = ``;
 });
-
 async function getCategoryMeals(category) {
-    $("#loeding").fadeIn(300);
-    let date = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
-    allget = await date.json();
-    displayCategory(allget.meals);
-    $("#loeding").fadeOut(300);
-
+  $("#loeding").fadeIn(300);
+  let date = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
+  allget = await date.json();
+  displayCategory(allget.meals);
+  $("#loeding").fadeOut(300);
 };
-
 function displayCategory(arr) {
-    let cartoona = "";
-
-    for (let i = 0; i < arr.length; i++) {
-        cartoona += `
+  let cartoona = "";
+  for (let i = 0; i < arr.length; i++) {
+    cartoona += `
         <div class=" mx-auto p-5 lg:w-1/4 md:w-1/3 sm:w-1/2 w-full">
         <div onclick="getMealDetails('${arr[i].idMeal}')" class=" mt-4 relative overflow-hidden">
-        <img class="w-full" src="${arr[i].strMealThumb}" alt="" srcset="">
+        <img class="w-full" src="${arr[i].strMealThumb}" alt="strMealThumb">
         <div
                 class="flex items-center ">
                 <p  class="text-2xl text-slate-50 font-bold">${arr[i].strMeal}</p>
             </div>
         </div>
     </div>
-
-
         `
-    }
+  };
 
-    dateROW.innerHTML = cartoona
+  dateROW.innerHTML = cartoona;
 };
-
 //////////////////////////////////////////////////////////////////////////////////////////////
-
 async function searchAreaApi() {
-    $("#loeding").fadeIn(300);
-    let date = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=`);
-    allget = await date.json();
-    displayarea(allget.meals);
-     $("#loeding").fadeOut(300);
-
+  $("#loeding").fadeIn(300);
+  let date = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=`);
+  allget = await date.json();
+  displayarea(allget.meals);
+  $("#loeding").fadeOut(300);
 };
-
 function displayarea(dern) {
-    let cartoona = ``;
-    for (let i = 0; i < dern.length; i++) {
-        cartoona += `
+  let cartoona = ``;
+  for (let i = 0; i < dern.length; i++) {
+    cartoona += `
         <div class=" mx-auto p-5 lg:w-1/4 md:w-1/3 sm:w-1/2 w-full">
                 <div onclick="clickAreaApi('${dern[i].strArea}')" class=" mt-4 relative overflow-hidden">
                     <i class="text-slate-50 flex items-center justify-center fa-solid fa-house-laptop fa-4x"></i>
@@ -261,31 +217,26 @@ function displayarea(dern) {
                 </div>
             </div>
         `
-    }
-    dateROW.innerHTML = cartoona;
+  }
+  dateROW.innerHTML = cartoona;
 };
-
 area.addEventListener("click", () => {
-    searchAreaApi()
-    dateinput.innerHTML = ``;
+  searchAreaApi()
+  dateinput.innerHTML = ``;
 
 });
-
 async function clickAreaApi(logarea) {
-    $("#loeding").fadeIn(300);
-    let date = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${logarea}`);
-    allget = await date.json();
-    displayclick(allget.meals);
-    $("#loeding").fadeOut(300);
+  $("#loeding").fadeIn(300);
+  let date = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${logarea}`);
+  allget = await date.json();
+  displayclick(allget.meals);
+  $("#loeding").fadeOut(300);
 };
-
 function displayclick(arr) {
-    let cartoona = "";
-
-    for (let i = 0; i < arr.length; i++) {
-        cartoona += `
-      
-        <div  class="allmain mx-auto p-5 lg:w-1/4 md:w-1/3 sm:w-1/2 w-full">
+  let cartoona = "";
+  for (let i = 0; i < arr.length; i++) {
+    cartoona += `
+        <div  class="allmain  p-5 lg:w-1/4 md:w-1/3 sm:w-1/2 w-full">
         <div onclick="getMealDetails('${arr[i].idMeal}')" class="parent group mt-4 relative overflow-hidden">
             <img class="rounded-xl" src="${arr[i].strMealThumb}" alt="images">
             <div
@@ -294,32 +245,23 @@ function displayclick(arr) {
                 </div>
         </div>
     </div>
-
-
         `
-    }
-
-    dateROW.innerHTML = cartoona
+  }
+  dateROW.innerHTML = cartoona;
 };
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 async function searchIngredientsApi() {
-    $("#loeding").fadeIn(300);
-    let date = await fetch(`https://www.themealdb.com/api/json/v1/1/list.php?i=list`);
-    allget = await date.json();
-    displayIngredients(allget.meals);
-    $("#loeding").fadeOut(300);
+  $("#loeding").fadeIn(300);
+  let date = await fetch(`https://www.themealdb.com/api/json/v1/1/list.php?i=list`);
+  allget = await date.json();
+  displayIngredients(allget.meals);
+  $("#loeding").fadeOut(300);
 };
-
 function displayIngredients(derr) {
-    let cartoona = ``;
-
-
-    for (let i = 0; i < derr.length; i++) {
-        cartoona += `
-        
-        <div class=" mx-auto p-5 lg:w-1/4 md:w-1/3 sm:w-1/2 w-full">
+  let cartoona = ``;
+  for (let i = 0; i < derr.length; i++) {
+    cartoona += `
+        <div class="   p-5 lg:w-1/4 md:w-1/3 sm:w-1/2 w-full">
         <div onclick="getIngredientsMeals('${derr[i].strIngredient}')" class="parent  mt-4   mx-auto">
                     <i class =" py-6 text-slate-50 text-center mx-auto flex justify-center  fa-solid fa-drumstick-bite fa-4x"></i>
                     <h1 class="text-slate-50  text-center font-bold text-2xl"> ${derr[i].strIngredient}</h1>
@@ -332,32 +274,26 @@ function displayIngredients(derr) {
         </div>
     </div>
         `
-    }
-
-    dateROW.innerHTML = cartoona
+  };
+  dateROW.innerHTML = cartoona;
 };
-
 ingredients.addEventListener("click", () => {
-    searchIngredientsApi()
-    dateinput.innerHTML = ``;
+  searchIngredientsApi()
+  dateinput.innerHTML = ``;
 
 });
-
 async function getIngredientsMeals(ingredients) {
-    $("#loeding").fadeIn(300);
-    let date = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredients}`);
-    allget = await date.json();
-    displayclickingredients(allget.meals);
-    $("#loeding").fadeOut(300);
-}
-
+  $("#loeding").fadeIn(300);
+  let date = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredients}`);
+  allget = await date.json();
+  displayclickingredients(allget.meals);
+  $("#loeding").fadeOut(300);
+};
 function displayclickingredients(arr) {
-    let cartoona = "";
-
-    for (let i = 0; i < arr.length; i++) {
-        cartoona += `
-      
-        <div  class="allmain mx-auto p-5 lg:w-1/4 md:w-1/3 sm:w-1/2 w-full">
+  let cartoona = "";
+  for (let i = 0; i < arr.length; i++) {
+    cartoona += `  
+        <div  class="allmain   p-5 lg:w-1/4 md:w-1/3 sm:w-1/2 w-full">
         <div onclick="getMealDetails('${arr[i].idMeal}')" class="parent group mt-4 relative overflow-hidden">
             <img class="rounded-xl" src="${arr[i].strMealThumb}" alt="images">
             <div
@@ -366,63 +302,48 @@ function displayclickingredients(arr) {
                 </div>
         </div>
     </div>
-
-
         `
-    }
+  };
 
-    dateROW.innerHTML = cartoona;
+  dateROW.innerHTML = cartoona;
 };
-
-////////////////////////////////////////////////////////////////////////////////////
-
-
 search.addEventListener("click", function () {
-    dasplaydiv();
-    dateROW.innerHTML = ``;
+  dasplaydiv();
+  dateROW.innerHTML = ``;
 });
-
 async function searchName(term) {
-    $("#loeding").fadeIn(300);
-    dateROW.innerHTML = "";
-
-    let date = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${term}`);
-    allget = await date.json();
-    allget.meals ? displayMeals(allget.meals) : displayMeals([]);
-
-    $("#loeding").fadeOut(300);
-
+  $("#loeding").fadeIn(300);
+  dateROW.innerHTML = "";
+  let date = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${term}`);
+  allget = await date.json();
+  allget.meals ? displayMeals(allget.meals) : displayMeals([]);
+  $("#loeding").fadeOut(300);
 };
-
 function dasplaydiv() {
-    let cartoona = "";
-    cartoona += `
+  let cartoona = "";
+  cartoona += `
                 <input oninput="searchName(this.value)" type="text" id="name" name="name" placeholder="Search By Name"
                     class="mt-1 p-2 w-1/3 placeholder-italic placeholder-slate-50 bg-transparent mx-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:shadow-md text-white">
 
                 <input oninput="searchByFLetter(this.value)" type="email" id="text" name="name" placeholder="Search By First Letter"
                     class="mt-1 p-2 w-1/3 placeholder-italic placeholder-slate-50 mx-3 bg-transparent border border-gray-300 rounded-md focus:outline-none focus:ring focus:shadow-md text-white">
         `
-     dateinput.innerHTML = cartoona;
+  dateinput.innerHTML = cartoona;
 };
-
 async function searchByFLetter(term) {
-    $("#loeding").fadeIn(300);
-    dateROW.innerHTML = "";
-    term == "" ? term = "a" : "";
-    let date = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${term}`);
-    allget = await date.json();
-    allget.meals ? displayMeals(allget.meals) : displayMeals([]);
-    $("#loeding").fadeOut(300);
+  $("#loeding").fadeIn(300);
+  dateROW.innerHTML = "";
+  term == "" ? term = "a" : "";
+  let date = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${term}`);
+  allget = await date.json();
+  allget.meals ? displayMeals(allget.meals) : displayMeals([]);
+  $("#loeding").fadeOut(300);
 };
-
 function displayMeals(arr) {
-    let cartoona = ``;
-
-    for (let i = 0; i < arr.length; i++) {
-        cartoona += `
-        
-        <div  class="allmain mx-auto p-5 lg:w-1/4 md:w-1/3 sm:w-1/2 w-full">
+  let cartoona = ``;
+  for (let i = 0; i < arr.length; i++) {
+    cartoona += `
+        <div  class="allmain   p-5 lg:w-1/4 md:w-1/3 sm:w-1/2 w-full">
         <div onclick="getMealDetails('${arr[i].idMeal}')" class="parent group mt-4 relative overflow-hidden">
             <img class="rounded-xl" src="${arr[i].strMealThumb}" alt="images">
             <div
@@ -432,18 +353,11 @@ function displayMeals(arr) {
         </div>
     </div>
         `
-    }
-
-    dateROW.innerHTML = cartoona;
-
+  };
+  dateROW.innerHTML = cartoona;
 };
-
 function displayContacts() {
-
-  let cartona =
-
-    `
-    
+  let cartona =`
     <div class="flex  w-1/2 mx-auto ms-32 lg:flex-row justify-center items-center  mt-32 lg:mt-40">
         <div class="w-full flex flex-col p-5 lg:flex-col justify-center lg:items-end pe-3">
             <input onkeyup="inputsregx()" type="text" name="name" id="enterName" placeholder="Enter Your Name"
@@ -503,10 +417,7 @@ function displayContacts() {
   `
   dateROW.innerHTML = cartona;
   dateinput.innerHTML = ``;
-
-let  submitBtn =document.getElementById("submitBtn");
-
-
+    submitBtn = document.getElementById("submitBtn");
   document.getElementById("enterName").addEventListener("focus", () => {
     nameTouched = true
   })
@@ -530,106 +441,51 @@ let  submitBtn =document.getElementById("submitBtn");
   document.getElementById("enterRePassword").addEventListener("focus", () => {
     repasswordTouched = true
   })
-} ;
+};
+function inputsregx() {
+  if (nameTouched) {
+    nameregx() ? document.getElementById("nameAlert").classList.replace("block", "hidden"): document.getElementById("nameAlert").classList.replace("hidden", "block");
+  }
+  if (emailTouched) {
+    emailregx() ? document.getElementById("emailAlert").classList.replace("block", "hidden") : document.getElementById("emailAlert").classList.replace("hidden", "block");
+  }
 
-  
-  function inputsregx() {
-    if (nameTouched) {
-      if (nameregx()) {
-  
-        document.getElementById("nameAlert").classList.replace("block", "hidden")
-  
-      } else {
-        document.getElementById("nameAlert").classList.replace("hidden", "block")
-  
-      }
-    }
-    if (emailTouched) {
-  
-      if (emailregx()) {
-        document.getElementById("emailAlert").classList.replace("block", "hidden")
-      } else {
-        document.getElementById("emailAlert").classList.replace("hidden", "block")
-  
-      }
-    }
-  
-    if (phoneTouched) {
-      if (phoneregx()) {
-        console.log("hello");
-        document.getElementById("numberAlert").classList.replace("block", "hidden")
-      } else {
-  
-        console.log("hello");
-  
-        document.getElementById("numberAlert").classList.replace("hidden", "block")
-  
-      }
-    }
-  
-    if (ageTouched) {
-      if (ageregx()) {
-        document.getElementById("ageAlert").classList.replace("block", "hidden")
-      } else {
-        document.getElementById("ageAlert").classList.replace("hidden", "block")
-  
-      }
-    }
-  
-    if (passwordTouched) {
-      if (repasswordregx()) {
-        console.log("omar");
-        document.getElementById("passowrdAlert").classList.replace("block", "hidden")
-      } else {
-        document.getElementById("passowrdAlert").classList.replace("hidden", "block")
-        console.log("erorr");
-      }
-    }
+  if (phoneTouched) {
+    phoneregx() ? document.getElementById("numberAlert").classList.replace("block", "hidden") : document.getElementById("numberAlert").classList.replace("hidden", "block");
+  }
 
-    if (repasswordTouched) {
-      if (repasswordregx()) {
-        document.getElementById("rePasswordAlert").classList.replace("block", "hidden")
-      } else {
-        document.getElementById("rePasswordAlert").classList.replace("hidden", "block")
-  
-      }
-    }
-  
-    if (nameregx() &&
-      emailregx() &&
-      phoneregx() &&
-      ageregx() &&
-      passwordregx() &&
-      repasswordregx()) {
-      submitBtn.removeAttribute("disabled")
-    } else {
-      submitBtn.setAttribute("disabled", true)
-    }
-  };
-  
-  function nameregx() {
-    return (/^[a-zA-Z ]+$/.test(document.getElementById("enterName").value))
-  };
-  
-  function emailregx() {
-    return (/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(document.getElementById("enterEmail").value))
+  if (ageTouched) {
+    ageregx() ? document.getElementById("ageAlert").classList.replace("block", "hidden") : document.getElementById("ageAlert").classList.replace("hidden", "block");
   }
-  
-  function phoneregx() {
-    return (/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/.test(document.getElementById("enterPhone").value))
-  }
-  
-  function ageregx() {
-    return (/^(0?[1-9]|[1-9][0-9]|[1][1-9][1-9]|200)$/.test(document.getElementById("enterAge").value))
-  }
-  
-  function passwordregx() {
-    return (/^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{8,}$/.test(document.getElementById("enterPassword").value))
-  }
-  
-  function repasswordregx() {
-    return document.getElementById("enterRePassword").value == document.getElementById("enterPassword").value
-  }
-  
-  
 
+  if (passwordTouched) {
+    repasswordregx() ? document.getElementById("passowrdAlert").classList.replace("block", "hidden") : document.getElementById("passowrdAlert").classList.replace("hidden", "block");
+    
+  }
+
+  if (repasswordTouched) {
+    repasswordregx() ? document.getElementById("rePasswordAlert").classList.replace("block", "hidden") : document.getElementById("rePasswordAlert").classList.replace("hidden", "block");
+    
+  }
+
+  nameregx() && emailregx() && phoneregx() && ageregx() && passwordregx() && repasswordregx()?submitBtn.removeAttribute("disabled"):submitBtn.setAttribute("disabled", true)
+  ;
+};
+function nameregx() {
+  return (/^[a-zA-Z ]+$/.test(document.getElementById("enterName").value))
+};
+function emailregx() {
+  return (/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(document.getElementById("enterEmail").value))
+};
+function phoneregx() {
+  return (/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/.test(document.getElementById("enterPhone").value))
+};
+function ageregx() {
+  return (/^(0?[1-9]|[1-9][0-9]|[1][1-9][1-9]|200)$/.test(document.getElementById("enterAge").value))
+};
+function passwordregx() {
+  return (/^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{8,}$/.test(document.getElementById("enterPassword").value))
+};
+function repasswordregx() {
+  return document.getElementById("enterRePassword").value == document.getElementById("enterPassword").value
+};

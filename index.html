@@ -1,0 +1,85 @@
+<!-- <!DOCTYPE html> -->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="./output.css">
+    <title>Document</title>
+</head>
+
+<body class="bg-black  overflow-hidden">
+    <div id="loeding" class="h-screen fixed top-0 left-0 right-0 bottom-0  z-30">
+        <i class="flex justify-center h-full items-center fa fa-spinner text-lime-100 fa-spin fa-5x"></i>
+    </div>
+
+    <main class="container mx-auto">
+        <section id="dateinput" class="container mb-6 mx-auto flex my-8 lex-wrap  items-center justify-center">
+        </section>
+
+        <section id="dateROW" class="container mt-6 mx-auto flex flex-wrap items-center justify-center">
+
+        </section>
+    </main>
+
+    <aside class="fixed z-40 top-0 left-[-218.406px] flex bg-black">
+        <div class="link  flex flex-col justify-between p-8 h-screen w-3/4 bg-slate-700">
+            <div class="links relative overflow-hidden">
+                <ul class="list-none overflow-hidden">
+                    <li class="oop-1 cursor-pointer text-lg relative top-full text-white py-2 hover:text-slate-500"
+                        id="search">
+                        Search
+                    </li>
+                    <li id="categories"
+                        class="oop-2 cursor-pointer text-lg relative top-full text-white py-2 hover:text-slate-500">
+                        Categories
+                    </li>
+                    <li id="area"
+                        class="oop-3 cursor-pointer text-lg relative top-full text-white py-2 hover:text-slate-500">
+                        Area
+                    </li>
+                    <li id="ingredients"
+                        class="oop-4 cursor-pointer text-lg relative top-full text-white py-2 hover:text-slate-500">
+                        Ingredients
+                    </li>
+                    <li onclick="displayContacts()" id="contact"
+                        class="oop-5 cursor-pointer text-lg relative top-full text-white py-2 hover:text-slate-500">
+                        Contact Us
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <div class="icon text-white">
+                    <i class="fa-brands mx-2 fa-facebook cursor-pointer text-lg pe-1 hover:text-slate-500"></i>
+                    <i class="fa-brands mx-2 fa-twitter cursor-pointer text-lg pe-1 hover:text-slate-500"></i>
+                    <i class="fa-solid mx-2 fa-globe cursor-pointer text-lg pe-1 hover:text-slate-500"></i>
+                </div>
+                <div class="fotter">
+                    <p class="text-white pt-3 text-lg">
+                        Copyright Â© 2019 All Rights
+                        <br />
+                        Reserved.
+                        <br />
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col bg-white py-7 px-2 w-1/4 text-black items-center justify-between">
+            <img src="image/logo.png" width="50px" alt="" />
+            <i class="openclick fa-solid open-close-icon fa-2x fa-align-justify cursor-pointer"></i>
+
+            <div class="flex flex-col py-2">
+                <i class="fa-solid mb-3 fa-globe d-block cursor-pointer"></i>
+                <i class="fa-solid mb-3 fa-share-nodes cursor-pointer"></i>
+            </div>
+        </div>
+    </aside>
+
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script src="js/index.js"></script>
+
+</body>
+
+</html>

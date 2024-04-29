@@ -150,7 +150,8 @@ function displayMealDetails(meal) {
                                         <h3 class="me-auto text-slate-50 font-bold text-xl">Tags :</h3>
                                               <ul class="me-auto text-slate-50 flex rounded-sm py-3 px-6 ">
                                             ${tagsStr}
-                                 <div class="flex mt-7"> 
+                                            </ul>
+                                 <div class="flex  mt-7"> 
                                      <a target="_blank" href="${meal.strSource}"
                                          class=" text-slate-50 py-3 px-6 flex rounded-sm bg-green-600 mx-3">Source</a>
                                      <a target="_blank" href="${meal.strYoutube}"
@@ -161,7 +162,9 @@ function displayMealDetails(meal) {
                     </div>
             `
 
-    dateROW.innerHTML = cartoona
+    dateROW.innerHTML = cartoona;
+    dateinput.innerHTML = ``;
+
 }
 ///////////////////////////////////////////
 
@@ -250,7 +253,7 @@ function displayarea(dern) {
         cartoona += `
         <div class=" mx-auto p-5 lg:w-1/4 md:w-1/3 sm:w-1/2 w-full">
                 <div onclick="clickAreaApi('${dern[i].strArea}')" class=" mt-4 relative overflow-hidden">
-                    <i class="text-slate-50 fa-solid fa-house-laptop fa-4x"></i>
+                    <i class="text-slate-50 flex items-center justify-center fa-solid fa-house-laptop fa-4x"></i>
                     <div
                         class="flex items-center justify-center ">
                         <p  class="text-2xl text-slate-50 font-bold">${dern[i].strArea}</p>
@@ -499,6 +502,7 @@ function displayContacts() {
 
   `
   dateROW.innerHTML = cartona;
+  dateinput.innerHTML = ``;
 
 let  submitBtn =document.getElementById("submitBtn");
 
